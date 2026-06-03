@@ -1,5 +1,9 @@
 const express = require('express');
-const port = 5000;
+require('dotenv').config();
+const port = process.env.PORT || 5000;
+const connectDB = require('./config/db');
+
+connectDB();
 
 const app = express();
 
@@ -13,6 +17,7 @@ app.get('/', (req, res) => {
 });
 
 const ideasRouter = require('./routes/ideas');
+const { connect } = require('mongoose');
 app.use('/api/ideas', ideasRouter);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));

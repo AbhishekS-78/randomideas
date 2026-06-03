@@ -1,51 +1,51 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
 
 const ideas = [
   {
     id: 1,
-    text: 'Positive NewsLetter, a newsletter that only shares positive, uplifting news',
-    tag: 'Technology',
-    username: 'TonyStark',
-    date: '2022-01-02',
+    text: "Positive NewsLetter, a newsletter that only shares positive, uplifting news",
+    tag: "Technology",
+    username: "TonyStark",
+    date: "2022-01-02",
   },
   {
     id: 2,
-    text: 'Milk cartons that turn a different color the older that your milk is getting',
-    tag: 'Inventions',
-    username: 'SteveRogers',
-    date: '2022-01-02',
+    text: "Milk cartons that turn a different color the older that your milk is getting",
+    tag: "Inventions",
+    username: "SteveRogers",
+    date: "2022-01-02",
   },
   {
     id: 3,
-    text: 'ATM location app which lets you know where the closest ATM is and if it is in service',
-    tag: 'Software',
-    username: 'BruceBanner',
-    date: '2022-01-02',
+    text: "ATM location app which lets you know where the closest ATM is and if it is in service",
+    tag: "Software",
+    username: "BruceBanner",
+    date: "2022-01-02",
   },
 ];
 
 // Get all ideas
-router.get('/', (req, res) => {
+router.get("/", (req, res) => {
   res.json({ success: true, data: ideas });
 });
 
 // Get idea by ID
-router.get('/:id', (req, res) => {
+router.get("/:id", (req, res) => {
   // Find whether the idea exists
   const idea = ideas.find((idea) => idea.id === +req.params.id); // parse the id (String) as a number
 
   if (!idea) {
     return res
       .status(404)
-      .json({ success: false, error: 'Resource not found' });
+      .json({ success: false, error: "Resource not found" });
   }
 
   res.json({ success: true, data: idea });
 });
 
 // Add an idea
-router.post('/', (req, res) => {
+router.post("/", (req, res) => {
   const idea = {
     id: ideas.length + 1,
     text: req.body.text,
@@ -60,13 +60,13 @@ router.post('/', (req, res) => {
 });
 
 // Update idea
-router.put('/:id', (req, res) => {
+router.put("/:id", (req, res) => {
   const idea = ideas.find((idea) => idea.id === +req.params.id);
 
   if (!idea) {
     return res
       .status(404)
-      .json({ success: false, error: 'Resource not found' });
+      .json({ success: false, error: "Resource not found" });
   }
 
   // Update the fields
@@ -77,13 +77,13 @@ router.put('/:id', (req, res) => {
 });
 
 // Delete idea
-router.delete('/:id', (req, res) => {
+router.delete("/:id", (req, res) => {
   const idea = ideas.find((idea) => idea.id === +req.params.id);
 
   if (!idea) {
     return res
       .status(404)
-      .json({ success: false, error: 'Resource not found' });
+      .json({ success: false, error: "Resource not found" });
   }
 
   // Splice the idea from the array
