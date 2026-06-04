@@ -1,23 +1,28 @@
-const express = require('express');
-require('dotenv').config();
+// Add middleware for making public folder static
+const path = require("path");
+const express = require("express");
+require("dotenv").config();
 const port = process.env.PORT || 5000;
-const connectDB = require('./config/db');
+const connectDB = require("./config/db");
 
 connectDB();
 
 const app = express();
+
+// Static folder
+app.use(express.static(path.join(__dirname, "public")));
 
 // Body parser middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // Default page, do nothing
-app.get('/', (req, res) => {
-  res.send({ message: 'Welcome to the RandomIdea API' });
+app.get("/", (req, res) => {
+  res.send({ message: "Welcome to the RandomIdea API" });
 });
 
-const ideasRouter = require('./routes/ideas');
-const { connect } = require('mongoose');
-app.use('/api/ideas', ideasRouter);
+const ideasRouter = require("./routes/ideas");
+const { connect } = require("mongoose");
+app.use("/api/ideas", ideasRouter);
 
 app.listen(port, () => console.log(`Server listening on port ${port}`));
